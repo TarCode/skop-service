@@ -2,10 +2,16 @@
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-store1 = Store.create(name: "Bob's Burgers")
-store2 = Store.create(name: 'Obama Fried Chicken')
+# NB: CREATE A USER BY SIGNING UP BEFORE RUNNING THE SEED SCRIPT
+
+Store.destroy_all
+Category.destroy_all
+Product.destroy_all
+Price.destroy_all
+Sale.destroy_all
+
+store1 = Store.create(name: "Bob's Burgers", user_id: 1)
+store2 = Store.create(name: 'Obama Fried Chicken', user_id: 1)
 
 category1 = Category.create(name: 'Burgers')
 category2 = Category.create(name: 'Chicken')

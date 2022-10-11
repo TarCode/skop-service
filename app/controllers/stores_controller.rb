@@ -4,7 +4,7 @@
 class StoresController < ApplicationController
   before_action :authenticate_user!
   def index
-    stores = Store.all
+    stores = Store.where(user: current_user)
     render json: stores
   end
 end
