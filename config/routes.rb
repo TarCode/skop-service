@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :products
+  resources :categories
+  resources :stores
   get '/current_user', to: 'current_user#index'
 
   devise_for :users, path: '', path_names: {
