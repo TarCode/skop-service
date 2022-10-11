@@ -9,6 +9,7 @@ Category.destroy_all
 Product.destroy_all
 Price.destroy_all
 Sale.destroy_all
+SaleItem.destroy_all
 
 store1 = Store.create(name: "Bob's Burgers", user_id: 1)
 store2 = Store.create(name: 'Obama Fried Chicken', user_id: 1)
@@ -22,5 +23,8 @@ product2 = Product.create(name: 'Streetwise 9', store: store2, category: categor
 Price.create(value_in_cents: 2000, unit: 'R', product: product1)
 Price.create(value_in_cents: 3000, unit: 'R', product: product2)
 
-Sale.create(total_in_cents: 2000, unit: 'R', store: store1, user_id: 1)
-Sale.create(total_in_cents: 3000, unit: 'R', store: store2, user_id: 1)
+sale1 = Sale.create(total_in_cents: 2000, unit: 'R', store: store1, user_id: 1)
+sale2 = Sale.create(total_in_cents: 3000, unit: 'R', store: store2, user_id: 1)
+
+Saleitem.create(price_in_cents: 2000, qty: 1, sale_id: sale1, product_id: product1)
+Saleitem.create(price_in_cents: 3000, qty: 1, sale_id: sale2, product_id: product2)
