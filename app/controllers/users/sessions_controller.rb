@@ -18,7 +18,7 @@ module Users
     def respond_to_on_destroy
       if current_user
         render json: {
-          status: 200, message: 'logged out successfully'
+          status: 200, message: 'Logged out successfully'
         }, status: :ok
       else
         render json: {

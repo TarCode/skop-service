@@ -15,3 +15,6 @@ product2 = Product.create(name: 'Streetwise 9', store: store2, category: categor
 
 Price.create(value_in_cents: 2000, unit: 'R', product: product1)
 Price.create(value_in_cents: 3000, unit: 'R', product: product2)
+
+Sale.create(total_in_cents: 2000, unit: 'R', store: store1, user_id: 1)
+Sale.create(total_in_cents: 3000, unit: 'R', store: store2, user_id: 1)

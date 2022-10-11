@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_in_cents: 1
+  unit: MyString
+  store: one
+  user: one
+
+two:
+  total_in_cents: 1
+  unit: MyString
+  store: two
+  user: two
