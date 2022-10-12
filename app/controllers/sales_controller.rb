@@ -17,11 +17,13 @@ class SalesController < ApplicationController
     new_sale = sale_params[:sale]
     new_saleitems = sale_params[:saleitems]
 
-    # NOTE: This should probably be an atomic transaction
-    sale = create_sale(new_sale)
-    saleitems = create_saleitems(new_saleitems, sale)
-
-    render json: { message: 'Sale added', sale:, saleitems: }
+    ActiveRecord::Base.transaction do
+      sale = create_sale(new_sale)
+      create_saleitems(new_saleitems, sale)
+    end
+    render json: { message: 'Sale added' }
+  rescue ActiveRecord::RecordInvalid => _e
+    render json: { message: 'Error adding sale' }, status: :bad_request
   end
 
   private
