@@ -7,4 +7,50 @@ class SalesController < ApplicationController
     sales = Sale.where(user: current_user)
     render json: sales, include: %i[saleitems products]
   end
+
+  def show
+    @sale = Sale.find(params[:id])
+    render json: @sale
+  end
+
+  def create
+    new_sale = sale_params[:sale]
+    new_saleitems = sale_params[:saleitems]
+
+    # NOTE: This should probably be an atomic transaction
+    sale = create_sale(new_sale)
+    saleitems = create_saleitems(new_saleitems, sale)
+
+    render json: { message: 'Sale added', sale:, saleitems: }
+  end
+
+  private
+
+  def sale_params
+    params.require(:sale_with_items)
+          .permit(
+            sale: %i[total_in_cents unit store_id],
+            saleitems: %i[price_in_cents qty product_id]
+          )
+  end
+
+  def create_sale(sale)
+    Sale.create!(
+      total_in_cents: sale[:total_in_cents],
+      unit: sale[:unit],
+      store_id: sale[:store_id],
+      user: current_user
+    )
+  end
+
+  def create_saleitems(saleitems, sale)
+    saleitems.each do |saleitem|
+      Saleitem.create!(
+        price_in_cents: saleitem[:price_in_cents],
+        qty: saleitem[:qty],
+        sale:,
+        product_id: saleitem[:product_id]
+      )
+    end
+  end
 end
