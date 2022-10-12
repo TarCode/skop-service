@@ -7,4 +7,20 @@ class CategoriesController < ApplicationController
     categories = Category.all
     render json: categories
   end
+
+  def show
+    @category = Category.find(params[:id])
+    render json: @category
+  end
+
+  def create
+    category = Category.create!(category_params)
+    render json: { message: 'Category added', category: }
+  end
+
+  private
+
+  def category_params
+    params.require(:category).permit(:name)
+  end
 end
