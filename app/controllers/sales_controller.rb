@@ -22,8 +22,8 @@ class SalesController < ApplicationController
       create_saleitems(new_saleitems, sale)
     end
     render json: { message: 'Sale added' }
-  rescue ActiveRecord::RecordInvalid => _e
-    render json: { message: 'Error adding sale' }, status: :bad_request
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { message: "Error adding sale: #{e.message}" }, status: :bad_request
   end
 
   private
