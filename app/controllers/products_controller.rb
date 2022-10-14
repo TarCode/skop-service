@@ -4,8 +4,13 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   def index
-    products = Product.all
-    render json: products, include: %i[store category prices]
+    @products = Product.all
+    render json: @products, include: %i[store category prices]
+  end
+
+  def products_by_store
+    @products = Product.where(store_id: products_by_store_params[:store_id])
+    render json: @products, include: %i[store category prices]
   end
 
   def show
@@ -22,5 +27,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :store_id, :category_id)
+  end
+
+  def products_by_store_params
+    params.permit(:store_id)
   end
 end

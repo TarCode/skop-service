@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :saleitems
   resources :sales
   resources :prices
-  resources :products
+  resources :products do
+    get '/store/:store_id', to: 'products#products_by_store', on: :collection, as: 'author'
+  end
   resources :categories
   resources :stores
   get '/current_user', to: 'current_user#index'
